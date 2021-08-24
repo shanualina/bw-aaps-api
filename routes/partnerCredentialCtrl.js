@@ -224,6 +224,7 @@ router.get('/getall', async (req, res, next) => {
             posts1.profile[0].PRORFILEPIC = "https://" + req.headers.host + '/images/' + posts1.profile[0].PRORFILEPIC
             posts1.document = await PARTNERDOCS.find({ UID: posts1._id })
             posts1.document.DOCUMENT_PATH = "https://" + req.headers.host + '/images/' + posts1.document.DOCUMENT_PATH
+            console.log( posts1._id )
             posts1.skills = await PARTNERSKILLS.find({ UID: posts1._id })
             return posts1;
         }));
@@ -408,6 +409,31 @@ router.post('/checkreffral', async (req, res, next) => {
         })
     }
 });
+//get skillas
+router.get('/getskills', async (req, res, next) => {
+    try {
+        const skills = await PARTNERSKILLS.find({ UID: "612471da61d8858764eac0e7" })
+        if (!skills) {
+            res.status(404).send({
+                MESSAGE: 'No record found',
+                STATUS: 404,
+            })
+        } else {
+            res.status(200).send({
+                STATUS: 200,
+                DATA: skills,
+            })
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            status: 500,
+            message: "Unable To Process"
+
+        })
+    }
+});
+
 
 const request = require('request');
 function sendSMS(otp, msg) {
