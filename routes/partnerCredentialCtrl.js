@@ -40,6 +40,7 @@ router.post("/getotp/:MONUMBER", async (req, res, next) => {
             REFERRALCODE: MONUMBER,
             REFFREDBY: req.body.REFFREDBY
         })
+        console.log(exitsProfile)
         if (!exitsProfile) {
             const EXITESRECORD = await PARTNERCREDENTIALS.findOne({ MONUMBER: MONUMBER })
             if (!EXITESRECORD) {
@@ -108,6 +109,7 @@ router.post("/getotp/:MONUMBER", async (req, res, next) => {
         }
         return res.status(208).json({
             STATUS: 208,
+            OTP: OTPVALUE,
             MESSAGE: "reffral code alaready exits"
         });
 
